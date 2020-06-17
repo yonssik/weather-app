@@ -1,0 +1,68 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-self: end;
+    padding: 1em;
+    grid-row: 2;
+    grid-column: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+
+    .firstBlock {
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+            
+        p {
+            margin: 0;
+            font-size: 20px;
+            justify-self: end;
+            align-self: flex-start;
+        }
+
+        h5 {
+            font-size: 25px;
+            justify-self: end;
+            margin: 0;
+        }
+
+        button {
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+
+            .svgIcon {
+                fill: currentColor;
+                width: 24px;
+                height: 24px;
+                margin-right: 5px;
+                display: block;
+                font-size: 24px;
+            }
+        }
+    }
+    
+    .secondBlock {
+        display: grid;
+        justify-items: center;
+
+        h1 { 
+            margin: 0;
+            font-size: 100px;
+        }
+    
+        h5 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        span {
+            font-style: italic;
+        }
+    }
+}
+

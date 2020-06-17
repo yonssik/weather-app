@@ -1,0 +1,15 @@
+.NavigationBar {
+    height: 56px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.NavigationBar nav {
+    height: 100%;
+}

@@ -1,0 +1,58 @@
+.container {
+    grid-row: 1/5;
+    grid-column: 2/4;
+    justify-self: center;
+    overflow: hidden;
+    border-radius: 3px;
+    margin-top: 1rem;
+
+    input {
+        color: white;
+        border: 0;
+        font-size: 24.5px;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    input::placeholder {
+        color: white;
+    }
+
+    button {
+        border: 0;
+        color: white;
+        vertical-align: top;
+        height: 30px;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    .suggestions {
+        color: white;
+        cursor: pointer;
+        list-style: none;
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 0 0 3px 3px;
+
+        li {
+            padding: 3px;
+            border-top: 1px solid #999;
+
+            span {
+                color: #999;
+                font-weight: bold;
+                font-style: italic;
+            }
+        }
+
+        li:hover {
+            background-color: rgb(138, 100, 243);
+        }
+    }
+}
