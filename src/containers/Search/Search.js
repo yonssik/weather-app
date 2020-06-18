@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import cities from 'cities.json';
+import jsesc from 'jsesc';
 
 import * as actionCreators from '../../store/actions/index';
 import styles from './Search.module.scss';
 import * as constants from '../../constants/constants';
 
 const Search = React.memo(props => {
+    const history = useHistory();
     const [input, setInput] = useState('');
     const [autoComplete, setAutoComplete] = useState([]);
     const dispatch = useDispatch();
@@ -14,12 +17,13 @@ const Search = React.memo(props => {
     useEffect(() => {
         if (input.length > 2) {
             let arrayLimit = 0;
-            const capitalized = input.replace(/^./, input[0].toUpperCase());
+            const capitalized = capitalizeEachWord(input);
             const suggestions = cities.filter(city => {
-                if (city.name.startsWith(capitalized) && arrayLimit !== 15) {
+                const normalizedStr = normilizingString(city.name);
+                if (normalizedStr.includes(capitalized) && arrayLimit !== 15) {
                     arrayLimit++;
                 }
-                return city.name.startsWith(capitalized) && (arrayLimit !== 15);
+                return normalizedStr.includes(capitalized) && (arrayLimit !== 15);
             });
             setAutoComplete(suggestions);
         } else {
@@ -27,12 +31,27 @@ const Search = React.memo(props => {
         }
     }, [input]);
 
-    const searchCityForecast = ({ name, country }) => {
-        dispatch(actionCreators.fetchForecastStart({
-            weather: `weather?q=${name},${country}&appid=${constants.API_KEY}&units=metric`,
-            forecast: `forecast?q=${name},${country}&appid=${constants.API_KEY}&units=metric`
-        }));
+    const normilizingString = str => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    };
 
+    const capitalizeEachWord = str => {
+        return str.replace(/(^\w|\s\w)/g, str => {
+            return str.toUpperCase();
+        });
+    };
+
+    const searchCityForecast = ({ name, country }) => {
+        history.push("/home", {
+            params: {
+                city: normilizingString(name),
+                country: country
+            }
+        });
+        // dispatch(actionCreators.fetchForecastStart({
+        //     weather: `weather?q=${normilizingString(name)},${country}&appid=${constants.API_KEY}&units=metric`,
+        //     forecast: `forecast?q=${normilizingString(name)},${country}&appid=${constants.API_KEY}&units=metric`
+        // }));
         setInput('');
     };
 

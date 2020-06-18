@@ -39,7 +39,6 @@ const FavoriteForecasts = props => {
                 });
 
                 const response = await Promise.all(promises);
-                console.log(response);
                 setData(response);
 
             } catch (e) {

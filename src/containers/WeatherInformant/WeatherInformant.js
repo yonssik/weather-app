@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import DailyForecast from '../../components/Forecast/DailyForecast/DailyForecast';
 import Search from '../Search/Search';
@@ -14,24 +14,25 @@ import * as constants from '../../constants/constants';
 const WeatherInformant = props => {
     const { currentCity, favoriteCities, error, fiveDayForecast } = useSelector(state => state);
     const [isFavorite, setIsFavorite] = useState(false);
+    const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
 
     useEffect(() => {
         console.log("Use Effect trigered in Weather informant -> location");
-        const sucessCallback = position => {
+        const sucessCallback = ({ coords }) => {
             dispatch(actionCreators.fetchForecastStart({
-                weather: `weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${constants.API_KEY}&units=metric`,
-                forecast: `forecast?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${constants.API_KEY}&units=metric`
+                weather: `weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${constants.API_KEY}&units=metric`,
+                forecast: `forecast?lat=${coords.latitude}&lon=${coords.longitude}&appid=${constants.API_KEY}&units=metric`
             }));
         }
 
         const errorCallback = error => {
             console.log(error);
-            dispatch(actionCreators.fetchFailed(error.message));
+            dispatch(actionCreators.fetchFailed(error));
         };
-
-        if (currentCity.city === '') {
+        if ((location.state === undefined && location.state === null)
+            || currentCity.city === '') {
             navigator.geolocation.getCurrentPosition(sucessCallback, errorCallback);
         } else {
             const { city, country } = location.state
@@ -43,9 +44,10 @@ const WeatherInformant = props => {
                     weather: `weather?q=${city},${country}&appid=${constants.API_KEY}&units=metric`,
                     forecast: `forecast?q=${city},${country}&appid=${constants.API_KEY}&units=metric`
                 }));
+                history.replace("/home", undefined);
             }
         }
-    }, []);
+    }, [location]);
 
     const checkIfIsFavorite = () => {
         const inFavorites = favoriteCities.find(id => id === currentCity.id);
