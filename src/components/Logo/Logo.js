@@ -1,11 +1,11 @@
 import React from 'react';
 
-import sunIcon from '../../assets/images/sun-icon-240.png';
-import classes from './Logo.module.css';
+import appIcon from '../../assets/logo/weather-app-logo.png';
+import classes from './Logo.module.scss';
 
 const logo = (props) => (
     <div className={classes.Logo} style={{ height: props.height }}>
-        <img src={sunIcon} alt="Weather" />
+        <img src={appIcon} alt="Weather" />
     </div>
 );
 

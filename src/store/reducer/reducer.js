@@ -16,7 +16,8 @@ const initialState = {
     },
     error: null,
     fiveDayForecast: [],
-    favoriteCities: getFavorites()
+    favoriteCities: getFavorites(),
+    isLoading: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,22 +37,34 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 favoriteCities: updatedCitysListRemove
             };
-        case actionTypes.FETCH_FORECAST:
+        case actionTypes.FETCH_FORECAST_SUCCESS:
             return {
                 ...state,
                 currentCity: action.currentCity,
                 fiveDayForecast: action.fiveDayForecast,
-                error: null
-            }
+                error: null,
+                isLoading: false
+            };
+        case actionTypes.FETCHING_FORECAST:
+            return {
+                ...state,
+                isLoading: true
+            };
         case actionTypes.FETCH_FAILED:
             return {
                 ...state,
-                error: action.error
+                error: action.error,
+                isLoading: false
             };
         case actionTypes.CLEAR_ERROR:
             return {
                 ...state,
                 error: null
+            };
+        case actionTypes.FETCH_FAVORITES_END:
+            return {
+                ...state,
+                isLoading: false
             };
         default: return state;
     };

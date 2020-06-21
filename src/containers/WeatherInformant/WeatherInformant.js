@@ -10,9 +10,10 @@ import * as actionCreators from '../../store/actions/index';
 import { saveFavorites } from '../../utils/localStorage/localStorage';
 import styles from './WeatherInformant.module.scss';
 import * as constants from '../../constants/constants';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const WeatherInformant = props => {
-    const { currentCity, favoriteCities, error, fiveDayForecast } = useSelector(state => state);
+    const { currentCity, favoriteCities, error, fiveDayForecast, isLoading } = useSelector(state => state);
     const [isFavorite, setIsFavorite] = useState(false);
     const history = useHistory();
     const location = useLocation();
@@ -80,20 +81,24 @@ const WeatherInformant = props => {
                 {error ? error.message : "Something went wrong!"}
             </Modal>
             <Search />
-            <DailyForecast
-                disabled={currentCity.city === '' ? true : false}
-                country={currentCity.country}
-                addToFavorites={!isFavorite
-                    ? () => dispatch(actionCreators.addCityToFavorites(currentCity.id))
-                    : () => dispatch(actionCreators.removeCityFromFavorites(currentCity.id))}
-                id={currentCity.id}
-                name={currentCity.city}
-                temp={currentCity.temp}
-                weather={currentCity.weather}
-                isFavorite={isFavorite} />
-            <div className={styles.container}>
-                {fiveDayForecastComponent}
-            </div>
+            {!isLoading
+                ? <>
+                    <DailyForecast
+                        disabled={currentCity.city === '' ? true : false}
+                        country={currentCity.country}
+                        addToFavorites={!isFavorite
+                            ? () => dispatch(actionCreators.addCityToFavorites(currentCity.id))
+                            : () => dispatch(actionCreators.removeCityFromFavorites(currentCity.id))}
+                        id={currentCity.id}
+                        name={currentCity.city}
+                        temp={currentCity.temp}
+                        weather={currentCity.weather}
+                        isFavorite={isFavorite} />
+                    <div className={styles.container}>
+                        {fiveDayForecastComponent}
+                    </div>
+                </>
+                : <Spinner />}
         </>
     );
 };

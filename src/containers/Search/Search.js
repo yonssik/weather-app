@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import cities from 'cities.json';
-import jsesc from 'jsesc';
 
 import * as actionCreators from '../../store/actions/index';
 import styles from './Search.module.scss';

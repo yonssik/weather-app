@@ -1,13 +1,16 @@
 import React from 'react';
 
+import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import styles from './NavigationBar.module.css';
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
+import styles from './NavigationBar.module.scss';
 
 const NavigationBar = (props) => {
     return (
         <header className={styles.NavigationBar}>
-            <h5>Weather-informant</h5>
-            <nav>
+            <DrawerToggle clicked={props.drawerToggleClicked} />
+            <Logo />
+            <nav className={styles.DesktopOnly}>
                 <NavigationItems />
             </nav>
         </header>

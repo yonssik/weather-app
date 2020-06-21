@@ -66,3 +66,32 @@
     }
 }
 
+@media (max-width: 710px) {
+    .container {
+        grid-row: 2;
+
+        .firstBlock {
+            p {
+                font-size: 15px;
+            }
+    
+            h5 {
+                font-size: 20px;
+            }
+        }
+
+        .secondBlock {
+            h1 {
+                font-size: 50px;
+            }
+        
+            h5 {
+                font-size: 20px;
+            }
+
+            span {
+                margin-left: 1rem;
+            }
+        }
+    }
+}

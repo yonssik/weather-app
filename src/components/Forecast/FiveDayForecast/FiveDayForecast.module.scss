@@ -10,3 +10,12 @@
         font-size: 1rem;
     }
 }
+
+@media (max-width: 710px) {
+    .container {
+
+        h5 {
+            font-size: 12px;
+        }
+    }   
+}

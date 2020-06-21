@@ -3,5 +3,7 @@ export {
     removeCityFromFavorites,
     addCityToFavorites,
     fetchFailed,
-    clearError
+    clearError,
+    fetchingForecast,
+    fetchFavoritesEnd
 } from './actions';

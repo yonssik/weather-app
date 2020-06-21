@@ -7,3 +7,9 @@
     align-items: center;
     height: 100%;
 }
+
+@media (max-width: 499px) {
+    .NavigationItems {
+        flex-direction: column;
+    }
+}

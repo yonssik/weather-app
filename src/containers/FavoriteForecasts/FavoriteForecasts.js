@@ -8,9 +8,10 @@ import FavoriteForecast from './FavoriteForcast/FavoriteForecast';
 import * as actionCreators from '../../store/actions/index';
 import { saveFavorites } from '../../utils/localStorage/localStorage';
 import Modal from '../../components/UI/Modal/Modal';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const FavoriteForecasts = props => {
-    const favorites = useSelector(state => state.favoriteCities);
+    const { favoriteCities, isLoading } = useSelector(state => state);
     const error = useSelector(state => state.error);
     const [data, setData] = useState([]);
     const dispatch = useDispatch();
@@ -18,7 +19,8 @@ const FavoriteForecasts = props => {
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
-                let favoritesListRepos = favorites.map(id => {
+                dispatch(actionCreators.fetchingForecast());
+                let favoritesListRepos = favoriteCities.map(id => {
                     const query = `id=${id}&appid=${constants.API_KEY}&units=metric`;
                     return `http://api.openweathermap.org/data/2.5/weather?${query}`;
                 });
@@ -38,9 +40,9 @@ const FavoriteForecasts = props => {
                     }
                 });
 
+                dispatch(actionCreators.fetchFavoritesEnd());
                 const response = await Promise.all(promises);
                 setData(response);
-
             } catch (e) {
                 dispatch(actionCreators.fetchFailed({
                     cod: null,
@@ -50,7 +52,7 @@ const FavoriteForecasts = props => {
         };
 
         fetchFavorites();
-    }, [favorites, dispatch, error]);
+    }, [favoriteCities, dispatch, error]);
 
     const removeItemFromFavoritesHandler = id => {
         dispatch(actionCreators.removeCityFromFavorites(id));
@@ -74,9 +76,13 @@ const FavoriteForecasts = props => {
                 modalClosed={() => dispatch(actionCreators.clearError())}>
                 {error ? error.message : 'Something went wrong'}
             </Modal>
-            <ul className={styles.container}>
-                {favoritesList}
-            </ul>
+            {
+                !isLoading
+                    ? <ul className={styles.container}>
+                        {favoritesList}
+                    </ul>
+                    : <Spinner />
+            }
         </>
     );
 };

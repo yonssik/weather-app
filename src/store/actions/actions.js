@@ -31,7 +31,7 @@ export const clearError = () => {
     };
 };
 
-export const fetchForecast = (dailyForecast, fiveDayForecast, image) => {
+export const fetchForecastSuccess = (dailyForecast, fiveDayForecast, image) => {
     const weather = {
         icon: dailyForecast.weather[dailyForecast.weather.length - 1].icon,
         main: dailyForecast.weather[dailyForecast.weather.length - 1].main,
@@ -56,7 +56,7 @@ export const fetchForecast = (dailyForecast, fiveDayForecast, image) => {
     });
 
     return {
-        type: actionTypes.FETCH_FORECAST,
+        type: actionTypes.FETCH_FORECAST_SUCCESS,
         currentCity: {
             city: dailyForecast.name,
             country: dailyForecast.sys.country,
@@ -69,9 +69,22 @@ export const fetchForecast = (dailyForecast, fiveDayForecast, image) => {
     };
 };
 
+export const fetchingForecast = () => {
+    return {
+        type: actionTypes.FETCHING_FORECAST
+    };
+};
+
+export const fetchFavoritesEnd = () => {
+    return {
+        type: actionTypes.FETCH_FAVORITES_END
+    };
+};
+
 export const fetchForecastStart = ({ weather, forecast }) => {
     return async dispatch => {
         try {
+            dispatch(fetchingForecast());
             let image = null;
             const responseDailyForecast = await axios.get(
                 `http://api.openweathermap.org/data/2.5/${weather}`
@@ -87,7 +100,7 @@ export const fetchForecastStart = ({ weather, forecast }) => {
                 image = imgResponse.data.results[Math.round(Math.random() * (imgResponse.data.results.length - 1))].urls.regular;
             }
 
-            dispatch(fetchForecast(responseDailyForecast.data, responseFiveDayForecast.data, image));
+            dispatch(fetchForecastSuccess(responseDailyForecast.data, responseFiveDayForecast.data, image));
         } catch (error) {
             console.log(JSON.stringify(error));
             console.log(error);

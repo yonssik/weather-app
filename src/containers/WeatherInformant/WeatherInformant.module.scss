@@ -9,6 +9,6 @@
 
 @media (max-width: 710px) {
     .container {
-        align-items: center;
+        grid-row: 3/5;
     }
 }
