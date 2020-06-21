@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { getFavorites } from '../../utils/localStorage/localStorage';
+import { getFavorites, saveFavorites } from '../../utils/localStorage/localStorage';
 
 const initialState = {
     currentCity: {
@@ -27,12 +27,14 @@ const reducer = (state = initialState, action) => {
                 ...state.favoriteCities,
                 action.addedCityId
             ];
+            saveFavorites(updatedCitysListAdd);
             return {
                 ...state,
                 favoriteCities: updatedCitysListAdd
             };
         case actionTypes.REMOVE_CITY_FROM_FAVORITES:
             const updatedCitysListRemove = state.favoriteCities.filter(id => action.cityId !== id);
+            saveFavorites(updatedCitysListRemove);
             return {
                 ...state,
                 favoriteCities: updatedCitysListRemove

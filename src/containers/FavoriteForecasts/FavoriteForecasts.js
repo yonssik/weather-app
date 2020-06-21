@@ -6,7 +6,6 @@ import styles from './FavoriteForecasts.module.scss';
 import * as constants from '../../constants/constants';
 import FavoriteForecast from './FavoriteForcast/FavoriteForecast';
 import * as actionCreators from '../../store/actions/index';
-import { saveFavorites } from '../../utils/localStorage/localStorage';
 import Modal from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
@@ -30,7 +29,6 @@ const FavoriteForecasts = props => {
                         const response = await axios.get(repo);
                         return response;
                     } catch (e) {
-                        console.log(JSON.stringify(e));
                         if (!error) {
                             dispatch(actionCreators.fetchFailed({
                                 cod: null,

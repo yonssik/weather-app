@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import cities from 'cities.json';
 
-import * as actionCreators from '../../store/actions/index';
 import styles from './Search.module.scss';
-import * as constants from '../../constants/constants';
 
 const Search = React.memo(props => {
     const history = useHistory();
     const [input, setInput] = useState('');
     const [autoComplete, setAutoComplete] = useState([]);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if (input.length > 2) {
@@ -47,10 +43,6 @@ const Search = React.memo(props => {
                 country: country
             }
         });
-        // dispatch(actionCreators.fetchForecastStart({
-        //     weather: `weather?q=${normilizingString(name)},${country}&appid=${constants.API_KEY}&units=metric`,
-        //     forecast: `forecast?q=${normilizingString(name)},${country}&appid=${constants.API_KEY}&units=metric`
-        // }));
         setInput('');
     };
 

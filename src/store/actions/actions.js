@@ -1,10 +1,8 @@
 import axios from 'axios';
 
 import * as actionTypes from '../actions/actionTypes';
-import * as constants from '../../constants/constants';
 
 export const addCityToFavorites = (id) => {
-    console.log(id);
     return {
         type: actionTypes.ADD_CITY_TO_FAVORITES,
         addedCityId: id
@@ -102,8 +100,6 @@ export const fetchForecastStart = ({ weather, forecast }) => {
 
             dispatch(fetchForecastSuccess(responseDailyForecast.data, responseFiveDayForecast.data, image));
         } catch (error) {
-            console.log(JSON.stringify(error));
-            console.log(error);
             dispatch(fetchFailed({
                 code: error.response.data.cod ? error.response.data.cod : null,
                 message: error.response.data.message ? error.response.data.message : error.message

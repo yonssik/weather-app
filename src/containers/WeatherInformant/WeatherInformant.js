@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import Search from '../Search/Search';
 import FiveDayForecast from '../../components/Forecast/FiveDayForecast/FiveDayForecast';
 import Modal from '../../components/UI/Modal/Modal';
 import * as actionCreators from '../../store/actions/index';
-import { saveFavorites } from '../../utils/localStorage/localStorage';
 import styles from './WeatherInformant.module.scss';
 import * as constants from '../../constants/constants';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -20,7 +19,6 @@ const WeatherInformant = props => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("Use Effect trigered in Weather informant -> location");
         const sucessCallback = ({ coords }) => {
             dispatch(actionCreators.fetchForecastStart({
                 weather: `weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${constants.API_KEY}&units=metric`,
@@ -29,7 +27,6 @@ const WeatherInformant = props => {
         }
 
         const errorCallback = error => {
-            console.log(error);
             dispatch(actionCreators.fetchFailed(error));
         };
         if ((location.state === undefined && location.state === null)
@@ -50,18 +47,15 @@ const WeatherInformant = props => {
         }
     }, [location]);
 
-    const checkIfIsFavorite = () => {
+    const checkIfIsFavorite = useCallback(() => {
         const inFavorites = favoriteCities.find(id => id === currentCity.id);
         if (inFavorites !== undefined) {
             setIsFavorite(true);
         } else setIsFavorite(false);
-    }
+    }, [favoriteCities, currentCity.id]);
 
     useEffect(() => {
-        console.log('Use Effect trigered in Weather informant -> favorites ');
         checkIfIsFavorite();
-        saveFavorites(favoriteCities);
-        console.log(isFavorite);
     }, [favoriteCities, isFavorite, checkIfIsFavorite]);
 
     const fiveDayForecastComponent = fiveDayForecast.map(forecast => {
@@ -105,7 +99,7 @@ const WeatherInformant = props => {
 
 export default WeatherInformant;
 
-// const convertTemperatureHandler = () => {
+    // const convertTemperatureHandler = () => {
     //     if (tempUnits.units === 'celsius') {
     //         let fahrenheitUnits = (tempUnits.temp * 9 / 5) + 32;
     //         console.log(tempUnits);

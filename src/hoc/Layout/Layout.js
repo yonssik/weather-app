@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import styles from './Layout.module.scss';
 import NavigationBar from '../../components/Navigation/NavigationBar/NavigationBar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import backgroundImage from '../../assets/images/weather-changing.jpg';
 
 const Layout = (props) => {
     const [showSideDrawer, setShowSideDrawer] = useState(false);
@@ -19,7 +20,7 @@ const Layout = (props) => {
 
     return (
         <div className={styles.bgImg} style={{
-            backgroundImage: `url(${img ? img : "../../assets/images/weather-changing.jpg"})`
+            backgroundImage: `url(${img ? img : backgroundImage})`
         }}>
             <NavigationBar drawerToggleClicked={sideDrawerToggleHandler} />
             <SideDrawer

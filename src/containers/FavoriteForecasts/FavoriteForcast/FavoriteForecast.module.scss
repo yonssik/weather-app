@@ -9,6 +9,7 @@ $bgColor: rgba(0, 0, 0, 0.5);
 	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 	padding: 1rem;
 	grid-column-gap: 5px;
+	font-style: italic;
 
 	img {
 		grid-row: 3;
@@ -26,6 +27,10 @@ $bgColor: rgba(0, 0, 0, 0.5);
 	h1 {
 		margin: 0;
 		grid-column: 1/2;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 15ch;
 
 		span {
 			color: #999;
@@ -35,7 +40,8 @@ $bgColor: rgba(0, 0, 0, 0.5);
 	h2 {
 		grid-row: 1;
 		grid-column: 4/5;
-		align-self: end;
+		align-self: center;
+		justify-self: center;
 		margin: 0;
 	}
 
@@ -44,7 +50,7 @@ $bgColor: rgba(0, 0, 0, 0.5);
 		font-weight: bold;
 	}
 
-	button {
+	.removeButton {
 		background-color: $bgColor;
 		grid-row: 4;
 		grid-column: 1;
@@ -57,7 +63,21 @@ $bgColor: rgba(0, 0, 0, 0.5);
 		padding: 7px 10px;
 		font-size: 16px;
 		letter-spacing: 1px;
-		z-index: 1;
+	}
+
+	.redirectButton {
+		background-color: $bgColor;
+		grid-row: 4;
+		grid-column: 4;
+		justify-self: start;
+		cursor: pointer;
+		border: 0;
+		border-radius: 30px;
+		box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+		color: #fff;
+		padding: 7px 10px;
+		font-size: 16px;
+		letter-spacing: 1px;
 	}
 }
 
@@ -74,11 +94,15 @@ $bgColor: rgba(0, 0, 0, 0.5);
 		}
 
 		img {
-			grid-column: 4;
+			grid-column: 3;
 		}
 
 		span {
-			grid-column: 4;
+			grid-column: 3;
+		}
+
+		.redirectButton {
+			justify-self: end;
 		}
 	}
 }
