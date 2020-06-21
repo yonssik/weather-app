@@ -85,10 +85,10 @@ export const fetchForecastStart = ({ weather, forecast }) => {
             dispatch(fetchingForecast());
             let image = null;
             const responseDailyForecast = await axios.get(
-                `http://api.openweathermap.org/data/2.5/${weather}`
+                `https://api.openweathermap.org/data/2.5/${weather}`
             );
             const responseFiveDayForecast = await axios.get(
-                `http://api.openweathermap.org/data/2.5/${forecast}`
+                `https://api.openweathermap.org/data/2.5/${forecast}`
             );
 
             const imgResponse = await axios.get(`https://api.unsplash.com/search/photos/?client_id=nTTpXnsIZ18QL4ttNyR15jJN5rX82Pxc9Vxb_vWpSZA&query=${responseDailyForecast.data.name}`, {
@@ -101,8 +101,8 @@ export const fetchForecastStart = ({ weather, forecast }) => {
             dispatch(fetchForecastSuccess(responseDailyForecast.data, responseFiveDayForecast.data, image));
         } catch (error) {
             dispatch(fetchFailed({
-                code: error.response.data.cod ? error.response.data.cod : null,
-                message: error.response.data.message ? error.response.data.message : error.message
+                code: error.response.data ? error.response.data.cod : null,
+                message: error.response.data ? error.response.data.message : error.message
             }));
         }
     };
