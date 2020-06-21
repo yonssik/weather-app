@@ -21,7 +21,7 @@ const FavoriteForecasts = props => {
                 dispatch(actionCreators.fetchingForecast());
                 let favoritesListRepos = favoriteCities.map(id => {
                     const query = `id=${id}&appid=${constants.API_KEY}&units=metric`;
-                    return `http://api.openweathermap.org/data/2.5/weather?${query}`;
+                    return `https://api.openweathermap.org/data/2.5/weather?${query}`;
                 });
 
                 const promises = favoritesListRepos.map(async repo => {
