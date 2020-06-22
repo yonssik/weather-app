@@ -27,7 +27,10 @@ const WeatherInformant = props => {
         }
 
         const errorCallback = error => {
-            dispatch(actionCreators.fetchFailed(error));
+            dispatch(actionCreators.fetchForecastStart({
+                weather: `weather?q=Tel Aviv,IL&appid=${constants.API_KEY}&units=metric`,
+                forecast: `forecast?q=Tel Aviv,IL&appid=${constants.API_KEY}&units=metric`
+            }));
         };
         if ((location.state === undefined && location.state === null)
             || currentCity.city === '') {
