@@ -3,6 +3,7 @@ import { getFavorites, saveFavorites } from '../../utils/localStorage/localStora
 
 const initialState = {
     currentCity: {
+        isFetched: false,
         city: '',
         country: '',
         id: 0,
@@ -55,6 +56,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_FAILED:
             return {
                 ...state,
+                currentCity: {
+                    ...state.currentCity,
+                    isFetched: false
+                },
                 error: action.error,
                 isLoading: false
             };

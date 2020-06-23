@@ -28,15 +28,23 @@ const WeatherInformant = props => {
         }
 
         const errorCallback = error => {
+            const { city, country } = {
+                city: 'Tel Aviv',
+                country: 'IL'
+            }
+            // const { city, country } = currentCity.city !== '' ? currentCity : cityToFetch;
             dispatch(actionCreators.fetchForecastStart({
-                weather: `weather?q=Tel Aviv,IL&appid=${constants.API_KEY}&units=metric`,
-                forecast: `forecast?q=Tel Aviv,IL&appid=${constants.API_KEY}&units=metric`
+                weather: `weather?q=${city},${country}&appid=${constants.API_KEY}&units=metric`,
+                forecast: `forecast?q=${city},${country}&appid=${constants.API_KEY}&units=metric`
             }));
         };
-        if ((location.state === undefined || location.state === null)
-            || currentCity.city === '') {
+        if (!currentCity.isFetched) {
             navigator.geolocation.getCurrentPosition(sucessCallback, errorCallback);
-        } else {
+        }
+    }, []);
+
+    useEffect(() => {
+        if (location.state !== undefined) {
             const { city, country } = location.state
                 ? location.state.params
                 : currentCity;

@@ -56,6 +56,7 @@ export const fetchForecastSuccess = (dailyForecast, fiveDayForecast, image) => {
     return {
         type: actionTypes.FETCH_FORECAST_SUCCESS,
         currentCity: {
+            isFetched: true,
             city: dailyForecast.name,
             country: dailyForecast.sys.country,
             id: dailyForecast.id,
