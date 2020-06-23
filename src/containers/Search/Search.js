@@ -10,7 +10,7 @@ const Search = React.memo(props => {
     const [autoComplete, setAutoComplete] = useState([]);
 
     useEffect(() => {
-        if (input.length > 2) {
+        if (input.length > 0) {
             let arrayLimit = 0;
             const capitalized = capitalizeEachWord(input);
             const suggestions = cities.filter(city => {
@@ -57,7 +57,7 @@ const Search = React.memo(props => {
             <ul className={styles.suggestions}>
                 {autoComplete.map(city => (
                     <li
-                        key={city.lat}
+                        key={`${city.lat},${city.lng}`}
                         onClick={() => searchCityForecast(city)}>{city.name},
                         <span> {city.country}</span>
                     </li>))}

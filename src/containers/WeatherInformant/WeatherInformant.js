@@ -14,7 +14,6 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 const WeatherInformant = props => {
     const { currentCity, favoriteCities, error, fiveDayForecast, isLoading } = useSelector(state => state);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [isFirstLoad, setIsFirstLoad] = useState(false);
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -32,12 +31,13 @@ const WeatherInformant = props => {
                 city: 'Tel Aviv',
                 country: 'IL'
             }
-            // const { city, country } = currentCity.city !== '' ? currentCity : cityToFetch;
+
             dispatch(actionCreators.fetchForecastStart({
                 weather: `weather?q=${city},${country}&appid=${constants.API_KEY}&units=metric`,
                 forecast: `forecast?q=${city},${country}&appid=${constants.API_KEY}&units=metric`
             }));
         };
+
         if (!currentCity.isFetched) {
             navigator.geolocation.getCurrentPosition(sucessCallback, errorCallback);
         }
