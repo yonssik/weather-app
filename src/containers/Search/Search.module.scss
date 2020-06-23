@@ -5,6 +5,7 @@
     justify-self: center;
     overflow: hidden;
     border-radius: 3px;
+    z-index: 400;
 
     input {
         color: white;
@@ -23,9 +24,6 @@
         vertical-align: top;
         height: 30px;
         background: rgba(0, 0, 0, 0.5);
-    }
-
-    button:hover {
         cursor: pointer;
     }
 
@@ -37,7 +35,7 @@
         z-index: 1;
         margin: 0;
         padding: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.8);
         border-radius: 0 0 3px 3px;
 
         li {

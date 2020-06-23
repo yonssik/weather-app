@@ -12,3 +12,12 @@
         grid-row: 3/5;
     }
 }
+
+
+@media (max-height: 410px), (max-width: 600px) {
+    .container {
+        grid-row: 4/5;
+        grid-column: 1/5;
+        margin-bottom: 1rem;
+    }
+}

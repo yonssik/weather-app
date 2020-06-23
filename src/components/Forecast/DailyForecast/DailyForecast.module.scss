@@ -95,3 +95,10 @@
         }
     }
 }
+
+@media (max-height: 410px), (max-width: 600px) {
+    .container {
+        grid-row: 3;
+        margin-top: 1rem;
+    }
+}

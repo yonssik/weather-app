@@ -14,7 +14,7 @@ const Search = React.memo(props => {
             let arrayLimit = 0;
             const capitalized = capitalizeEachWord(input);
             const suggestions = cities.filter(city => {
-                const normalizedStr = normilizingString(city.name);
+                const normalizedStr = normalizingString(city.name);
                 if (normalizedStr.includes(capitalized) && arrayLimit !== 15) {
                     arrayLimit++;
                 }
@@ -26,7 +26,7 @@ const Search = React.memo(props => {
         }
     }, [input]);
 
-    const normilizingString = str => {
+    const normalizingString = str => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     };
 
@@ -39,7 +39,7 @@ const Search = React.memo(props => {
     const searchCityForecast = ({ name, country }) => {
         history.push("/home", {
             params: {
-                city: normilizingString(name),
+                city: normalizingString(name),
                 country: country
             }
         });

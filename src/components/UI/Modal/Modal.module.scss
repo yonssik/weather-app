@@ -10,7 +10,7 @@
     box-shadow: 1px 1px 1px black;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
-    z-index: 500;
+    z-index: 700;
 
     span {
         display: block;
@@ -22,5 +22,11 @@
     p {
         margin: 0;
         padding: 5px;
+    }
+}
+
+@media (max-height: 410px), (max-width: 500px) {
+    .container {
+        
     }
 }

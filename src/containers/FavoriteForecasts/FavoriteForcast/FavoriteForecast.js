@@ -8,6 +8,10 @@ const FavoriteForecast = props => {
     const history = useHistory();
     const icons = importAll(require.context('../../../assets/icons', false, /\.png/));
 
+    const normalizingString = str => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    };
+
     return (
         <li className={styles.container}>
             <h1>{props.city}, <span>{props.country}</span></h1>
@@ -19,7 +23,7 @@ const FavoriteForecast = props => {
                 onClick={props.onRemoveItem}>Remove</button>
             <button
                 className={styles.redirectButton}
-                onClick={() => history.push("/home", { params: { city: props.city, country: props.country } })}>
+                onClick={() => history.push("/home", { params: { city: normalizingString(props.city), country: props.country } })}>
                 <img src={icons['redirect.png']} alt="redirect" />
             </button>
         </li>
