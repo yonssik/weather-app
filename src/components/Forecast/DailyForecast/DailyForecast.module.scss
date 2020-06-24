@@ -69,7 +69,9 @@
 @media (max-width: 710px) {
     .container {
         grid-row: 2/4;
+        grid-column: 2/4;
         align-self: center;
+        justify-self: center;
 
         .firstBlock {
             p {
@@ -94,6 +96,12 @@
                 margin-left: 1rem;
             }
         }
+    }
+}
+
+@media (orientation: portrait) and (max-height: 492px) {
+    .container {
+        grid-row: 2;
     }
 }
 
